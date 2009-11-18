@@ -165,7 +165,7 @@ __END__
 
 =head1 NAME
 
-Acme::Study::OS::DateLocale - study date-specific locales
+Acme::Study::OS::DateLocales - study date-specific locales
 
 =head1 SYNOPSIS
 
