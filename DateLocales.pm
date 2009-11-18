@@ -57,12 +57,13 @@ sub weekday_and_month_names {
 	Dumper($ref);
     };
     my $register_and_use_data = sub {
-	my($ref) = @_;
+	my($ref, $name) = @_;
 	my $fingerprint = $fingerprint_data->($ref);
 	if (exists $register{$fingerprint}) {
-	    $register{$fingerprint};
+	    +{ '==' => $register{$fingerprint} };
 	} else {
-	    $register{$fingerprint} = $ref;
+	    $register{$fingerprint} = $name;
+	    $ref;
 	}
     };
 
@@ -97,15 +98,21 @@ sub weekday_and_month_names {
 	    }
 	}
 
-	for my $key (keys %locale_res) {
-	    $locale_res{$key} = $register_and_use_data->($locale_res{$key});
+	# Order of the register_and_use_data calls is crucial here:
+	# first do it for the whole dataset, and then for every
+	# embedded array.
+	my $locale_res = $register_and_use_data->(\%locale_res, $locname);
+	unless ($locale_res->{'=='}) {
+	    for my $key (keys %$locale_res) {
+		$locale_res->{$key} = $register_and_use_data->($locale_res->{$key}, $key);
+	    }
 	}
 
 	push @res, {
-		    # 'name' has a leading space, to have it first in the
-		    # Sortkeys-sorted dump
-		    " name" => $locname,
-		    "d" => $register_and_use_data->(\%locale_res),
+		    # 'n' (name) has a leading space, to have it first
+		    # in the Sortkeys-sorted dump
+		    " n" => $locname,
+		    "d" => $locale_res,
 		   };
     }
     @res;
@@ -155,3 +162,35 @@ sub _is_in_path {
 1;
 
 __END__
+
+=head1 NAME
+
+Acme::Study::OS::DateLocale - study date-specific locales
+
+=head1 SYNOPSIS
+
+None. Just run the test.
+
+=head1 DESCRIPTION
+
+This module misuses the CPAN testers system to study the result of
+date-specific locale operations. Some of the questions to answer:
+
+=over
+
+=item Can we rely on the fact that the locale implementation will
+return "bytes" in the given charset (encoding)?
+
+=item Is the %OB extension of <POSIX/strftime> supported?
+
+=back
+
+=head1 AUTHOR
+
+Slaven Rezic.
+
+=head1 SEE ALSO
+
+L<Acme::Study::Perl>.
+
+=cut
