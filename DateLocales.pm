@@ -185,6 +185,28 @@ return "bytes" in the given charset (encoding)?
 
 =back
 
+=head2 RESULTS
+
+ * Solaris 10:
+   * does not understand %OB
+   * %B seems to return the genitive form
+   * the "short" locale names seem to link to the non-utf8 forms (iso-8859-1 or so)
+   * encoding seems to match the locale charset
+   * all Serbian variants are cyrillic
+ * FreeBSD 7:
+   * understands %OB, which is usually the nominative form of month names
+   * %B has the genitive form (modulo bugs, see the croatian locale)
+   * encoding matches the locale charset
+   * the ISO8859-2 variant of Serbian is latin, all others are cyrillic
+ * Linux (debian lenny):
+   * does not understand %OB
+   * encoding seems to match the locale charset
+ * Linux (debian etch):
+   * does not understand %OB
+   * %B returns the nominative form (at least for Croatian)
+   * encoding seems to match the locale charset
+   * the "short" locale names seem to link to the non-utf8 forms (iso-8859-1 or so)
+
 =head1 AUTHOR
 
 Slaven Rezic.
