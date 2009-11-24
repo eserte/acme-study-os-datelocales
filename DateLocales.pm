@@ -16,7 +16,7 @@ package Acme::Study::OS::DateLocales;
 use 5.008;
 
 use strict;
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use base qw(Exporter);
 our @EXPORT = qw(weekday_and_month_names_dump);
@@ -169,7 +169,7 @@ Acme::Study::OS::DateLocales - study date-specific locales
 
 =head1 SYNOPSIS
 
-None. Just run the test.
+None. Just run the Pod.
 
 =head1 DESCRIPTION
 
