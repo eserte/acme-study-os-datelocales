@@ -193,11 +193,12 @@ return "bytes" in the given charset (encoding)?
    * the "short" locale names seem to link to the non-utf8 forms (iso-8859-1 or so)
    * encoding seems to match the locale charset
    * all Serbian variants are cyrillic
- * FreeBSD 7:
+ * FreeBSD 6.2, 7.0, 7.2:
    * understands %OB, which is usually the nominative form of month names
-   * %B has the genitive form (modulo bugs, see the croatian locale)
+   * %B has the genitive form (modulo bugs, see the Croatian locale)
    * encoding matches the locale charset
    * the ISO8859-2 variant of Serbian is latin, all others are cyrillic
+   * it seems that all of locales are installed by default
  * Linux (debian lenny):
    * does not understand %OB
    * encoding seems to match the locale charset
@@ -206,6 +207,29 @@ return "bytes" in the given charset (encoding)?
    * %B returns the nominative form (at least for Croatian)
    * encoding seems to match the locale charset
    * the "short" locale names seem to link to the non-utf8 forms (iso-8859-1 or so)
+ * Linux (s390x-linux):
+   * does not understand %OB
+   * %B returns the nominative form (at least for Bosnian and Czech)
+   * the @euro form seems to be the same like the "short" locale (that is, iso-8859-15 or so)
+ * OpenBSD 4.5:
+   * does not seem to have the "locales -a" command, so only the default locale was tested
+   * understands %OB, contents (genitive vs. nominative) unclear
+ * Darwin 8:
+   * understands %OB, and seems to have the same bugs as the FreeBSD version
+     (Croatian locale)
+   * encoding matches the locale charset
+   * the ISO8859-2 variant of Serbian is latin, all others are cyrillic
+   * it seems that all of locales are installed by default
+ * MSWin32:
+   * does not understand %OB
+ * cygwin:
+   * does not seem to have the "locales -a" command, so only the default locale was tested
+   * understands %OB, contents (genitive vs. nominative) unclear
+ * irix 6.5:
+   * does not understand %OB
+   * does not have utf-8 locales, but iso-8859-15 locales
+   * the non-latin-1 locales (latin2, russian) don't have an encoding spec in its
+     locale name, so detecting the encoding must be done through an heuristic
 
 =head1 AUTHOR
 
