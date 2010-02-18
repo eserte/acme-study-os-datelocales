@@ -181,7 +181,7 @@ date-specific locale operations. Some of the questions to answer:
 =item Can we rely on the fact that the locale implementation will
 return "bytes" in the given charset (encoding)?
 
-=item Is the %OB extension of <POSIX/strftime> supported?
+=item Is the %OB extension of L<POSIX/strftime> supported?
 
 =back
 
